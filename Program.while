@@ -1,0 +1,15 @@
+x = 5;
+
+num add(x, y):
+    while a != 0:
+        while b != 0:
+            while c != 0:
+                d = 3;
+            #
+        #
+        d = 5;
+    #
+    return z;
+    
+z = add(x, y);
+writeln(z);
