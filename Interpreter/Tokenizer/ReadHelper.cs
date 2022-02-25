@@ -21,7 +21,19 @@ namespace WHILE_Interpreter.Interpreter
 
         public static CodeLine[] Normalize(CodeLine[] sourceCode)
         {
-            return sourceCode.Where(line => !string.IsNullOrEmpty(line.Phrase) && !string.IsNullOrWhiteSpace(line.Phrase)).ToArray();
+            List<CodeLine> source = new List<CodeLine>();
+            
+            for (int clc = 1, i = 0; i < sourceCode.Length; i++)
+            {
+                var line = sourceCode[i];
+                if (!string.IsNullOrEmpty(line.Phrase) && !string.IsNullOrWhiteSpace(line.Phrase))
+                {
+                    source.Add(new CodeLine(line.Phrase, (uint)clc));
+                    clc++;
+                }
+            }
+
+            return source.ToArray();
         }
     }
 
@@ -44,7 +56,7 @@ namespace WHILE_Interpreter.Interpreter
 
         public override string ToString()
         {
-            return this.Phrase;
+            return $"{Number}: {this.Phrase}";
         }
     }
 }

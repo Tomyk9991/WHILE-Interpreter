@@ -25,16 +25,25 @@ namespace WHILE_Interpreter.Interpreter.While
             return Scope.Parse(line);
         }
 
-        public string ToTreeView(int indent)
+
+        public List<string> ToTreeView()
         {
-            StringBuilder builder = new StringBuilder();
+            var lines = new List<string>
+            {
+                "├── While Token:",
+                "   ├── " + this.HeaderToken.ToTreeView()[0],
+                "   └── Scope:"
+            };
+
+            List<string> tempLines = this.Scope.ToTreeView();
             
-            builder.Append(' ', indent * 2).AppendLine($"While token: {{");
-            builder.AppendLine($"{this.HeaderToken.ToTreeView(indent + 1)} ");
-            builder.AppendLine($"{this.Scope?.ToTreeView(indent + 1)}");
-            builder.Append(' ', indent * 2).Append("}");
-            
-            return builder.ToString();
+            foreach (var tempLine in tempLines)
+            {
+                lines.Add("      " + tempLine);
+            }
+
+
+            return lines;
         }
     }
 }

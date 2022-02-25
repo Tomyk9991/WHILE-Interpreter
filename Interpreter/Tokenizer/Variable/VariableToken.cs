@@ -35,11 +35,8 @@ namespace WHILE_Interpreter.Interpreter
 
             return this;
         }
-
-        public string ToTreeView(int indent)
-        {
-            string increment = new string(' ', indent * 2);
-            return $"{increment}Variable token: {{name: {this.Name.Value}, Assignment: {this.Assignment.ToTreeView(0)}}}";
-        }
+        
+        public List<string> ToTreeView()
+            => new() { $"Variable token: {{name: {this.Name.Value}, Assignment: {this.Assignment.ToTreeView()[0]}}}" };
     }
 }

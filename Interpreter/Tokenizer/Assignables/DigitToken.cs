@@ -20,9 +20,6 @@ namespace WHILE_Interpreter.Interpreter
             return Value;
         }
 
-        public string ToTreeView(int indent)
-        {
-            return new StringBuilder("").Append(' ', indent * 2).Append($"{{Value: {this.Value}}}").ToString();
-        }
+        public List<string> ToTreeView() => new() { $"{{Value: {this.Value}}}" };
     }
 }

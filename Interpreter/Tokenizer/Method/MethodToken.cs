@@ -1,8 +1,9 @@
 using System.Text;
+using WHILE_Interpreter.Interpreter.Logging;
 
 namespace WHILE_Interpreter.Interpreter.Method
 {
-    public class MethodToken : IToken
+    public class MethodToken : IToken, ITreeViewElement
     {
         public MethodHeaderToken HeaderToken { get; private set; }
         public InnerBodyScope Scope { get; private set; }
@@ -46,16 +47,22 @@ namespace WHILE_Interpreter.Interpreter.Method
             return this;
         }
 
-        public string ToTreeView(int indent)
+        public List<string> ToTreeView()
         {
-            StringBuilder builder = new StringBuilder();
+            var lines = new List<string>
+            {
+                "├── Header",
+                "│  ├── " + this.HeaderToken.ToTreeView()[0],
+                "├── Scope:"
+            };
+
             
-            builder.Append(' ', indent * 2).AppendLine($"Method token: {{");
-            builder.AppendLine($"{this.HeaderToken.ToTreeView(indent + 1)} ");
-            builder.AppendLine($"{Scope.ToTreeView(indent + 1)}");
-            builder.Append(' ', indent * 2).Append("}");
-            
-            return builder.ToString();
+            foreach (var line in this.Scope.ToTreeView())
+            {
+                lines.Add("   " + line);
+            }
+
+            return lines;
         }
     }
 }

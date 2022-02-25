@@ -4,11 +4,15 @@ namespace WHILE_Interpreter.Interpreter
 {
     public class Tokenizer
     {
-        public void Tokenize(CodeLine[] lines)
+        public TopLevelScope Tokenize(CodeLine[] lines)
         {
-            // sourceCode = sourceCode.Replace("\n", "");
             TopLevelScope scope = new TopLevelScope();
 
+            foreach (var codeLine in lines)
+            {
+                Console.WriteLine(codeLine);
+            }
+            
             for (int i = 0; i < lines.Length; i++)
             {
                 CodeLine currentLine = lines[i];
@@ -22,7 +26,7 @@ namespace WHILE_Interpreter.Interpreter
                 
                 if (token is MethodHeaderToken header)
                 {
-                    MethodToken method = new MethodToken(header, lines, currentLine.Number - 1);
+                    MethodToken method = new MethodToken(header, lines, currentLine.Number);
                     scope.Methods.Add(method);
 
                     if(i + 1 >= lines.Length)
@@ -30,11 +34,14 @@ namespace WHILE_Interpreter.Interpreter
                     
                     currentLine = lines[i + 1];
                     method.Parse(currentLine);
+                    
                     i = method.LatestLine();
                 }
             }
 
-            Console.WriteLine(scope.ToTreeView());
+            scope.Print();
+
+            return scope;
         }
     }
 }

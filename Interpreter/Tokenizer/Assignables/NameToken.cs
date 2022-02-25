@@ -25,10 +25,9 @@ namespace WHILE_Interpreter.Interpreter
             // watch the value up in the stack
             return 0;
         }
-        
-        public string ToTreeView(int indent)
-        {
-            return new StringBuilder("").Append(' ', indent * 2).Append($"{{Value: {this.Value}}}").ToString();
-        }
+
+
+        public List<string> ToTreeView()
+            => new() { $"{{Value: {this.Value}}}" };
     }
 }

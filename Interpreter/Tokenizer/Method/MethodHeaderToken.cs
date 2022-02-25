@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WHILE_Interpreter.Interpreter.Logging;
 
 namespace WHILE_Interpreter.Interpreter.Method
 {
-    public class MethodHeaderToken : IToken
+    public class MethodHeaderToken : IToken, ITreeViewElement
     {
         public NameToken[] Parameters { get; private set; }
         public NameToken Name { get; private set; }
@@ -69,12 +70,10 @@ namespace WHILE_Interpreter.Interpreter.Method
             return p.ToArray();
         }
 
-        public string ToTreeView(int indent)
-        {
-            StringBuilder builder = new StringBuilder();
-            string parameterString = Parameters.ToInlineString();
-            builder.Append(' ', indent * 2).Append($"Header: {{name: {Name.Value} return type: {ReturnType}, parameters: {parameterString}}}");
-            return builder.ToString();
-        }
+        public List<string> ToTreeView()
+            => new()
+            {
+                $"name: {Name.Value}, return: {ReturnType}, parameters: {Parameters.ToInlineString()}"
+            };
     }
 }

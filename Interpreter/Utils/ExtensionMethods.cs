@@ -15,7 +15,7 @@ namespace WHILE_Interpreter.Interpreter
 
             foreach (T value in list)
             {
-                builder.Append(value.ToTreeView(0));
+                builder.Append(value.ToTreeView()[0]);
                 if (!value.Equals(lastElement))
                 {
                     builder.Append(", ");

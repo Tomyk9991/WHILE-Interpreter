@@ -3,13 +3,15 @@ namespace WHILE_Interpreter;
 
 class Program
 {
+    /*
+     */
     public static void Main(string[] args)
     {
         CodeLine[] sourceCode = ReadHelper.Read(AppDomain.CurrentDomain.BaseDirectory + "/Program.while");
         sourceCode = ReadHelper.Normalize(sourceCode);
             
         Tokenizer tokenizer = new Tokenizer();
-        tokenizer.Tokenize(sourceCode);
+        TopLevelScope scope = tokenizer.Tokenize(sourceCode);
     }
 }
 

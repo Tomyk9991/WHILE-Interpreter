@@ -1,5 +1,16 @@
 x = 5;
 
+num sub(x, y):
+    while a != 0:
+        while b != 0:
+            while c != 0:
+                d = 3;
+            #
+        #
+        e = 5;
+    #
+    return z;
+    
 num add(x, y):
     while a != 0:
         while b != 0:
@@ -11,9 +22,16 @@ num add(x, y):
     #
     return z;
 
+num div(x, y, z):
+    while a != 0:
+        quertz = 5;
+    #
+    return z;
+
 x += 2;
 y = 3;
 y += x;
 
 z = add(x, y);
 writeln(z);
+

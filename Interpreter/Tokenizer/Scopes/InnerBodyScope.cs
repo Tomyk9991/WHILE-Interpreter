@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Text;
 using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Method;
 using WHILE_Interpreter.Interpreter.While;
@@ -30,7 +28,7 @@ namespace WHILE_Interpreter.Interpreter
         {
             VariableToken variableToken = (VariableToken) new VariableToken().Parse(line);
 
-            LastVisited = (int)line.Number - 2;
+            LastVisited = (int)line.Number - 1;
             
             if (variableToken != null)
             {
@@ -45,7 +43,7 @@ namespace WHILE_Interpreter.Interpreter
                 WhileToken whileToken = new WhileToken(whileHeaderToken, codeLines);
                 this.Stack.Push(whileToken);
                 
-                for (int i = (int) line.Number - 1; i < codeLines.Length; i++)
+                for (int i = (int) line.Number; i < codeLines.Length; i++)
                 {
                     CodeLine currentLine = codeLines[i];
                     IToken token = whileToken.Parse(currentLine);
@@ -73,19 +71,30 @@ namespace WHILE_Interpreter.Interpreter
             return whileEscapeToken;
         }
 
-        public string ToTreeView(int indent)
+        public List<string> ToTreeView()
         {
-            StringBuilder builder = new StringBuilder();
+            var lines = new List<string>();
             
-            builder.Append(' ', indent * 2).AppendLine("Stack: {");
-            foreach (IStackable stackable in Stack)
+            foreach (IStackable stackable in this.Stack)
             {
-                builder.AppendLine(stackable.ToTreeView(indent + 1));
+                List<string> tempLines = stackable.ToTreeView();
+
+                for (var i = 0; i < tempLines.Count; i++)
+                {
+                    string tempLine = tempLines[i];
+                    if (tempLines.Count == 1)
+                    {
+                        if (i == tempLines.Count - 1)
+                            lines.Add("└─ " + tempLine);
+                        else
+                            lines.Add("├── " + tempLine);
+                    }
+                    else
+                        lines.Add(tempLine);
+                }
             }
-
-            builder.Append(' ', indent * 2).Append("}");
-
-            return builder.ToString();
+            
+            return lines;
         }
     }
 }

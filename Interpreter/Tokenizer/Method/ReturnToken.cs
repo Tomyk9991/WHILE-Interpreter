@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace WHILE_Interpreter.Interpreter.Method
@@ -38,11 +39,7 @@ namespace WHILE_Interpreter.Interpreter.Method
             return this;
         }
 
-        public string ToTreeView(int indent)
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(' ', 2 * indent).Append("Return token: ").Append(this.ReturnValue.ToTreeView(0));
-            return builder.ToString();
-        }
+        public List<string> ToTreeView()
+            => new() { $"Return token: {this.ReturnValue.ToTreeView()[0]}" };
     }
 }

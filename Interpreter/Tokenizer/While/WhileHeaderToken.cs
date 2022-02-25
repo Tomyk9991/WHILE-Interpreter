@@ -1,9 +1,10 @@
 using System.Linq;
 using System.Text;
+using WHILE_Interpreter.Interpreter.Logging;
 
 namespace WHILE_Interpreter.Interpreter.While
 {
-    public class WhileHeaderToken : IToken
+    public class WhileHeaderToken : IToken, ITreeViewElement
     {
         // x != 0: 
         // The while language only can use use x != 0, so no need for real boolean algebra
@@ -51,13 +52,8 @@ namespace WHILE_Interpreter.Interpreter.While
             
             return this;
         }
-        
-        public string ToTreeView(int indent)
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(' ', indent * 2).Append($"Header: {{while target: {AgainstZeroVariable.ToTreeView(0)}}}");
-            return builder.ToString();
-        }
 
+        public List<string> ToTreeView()
+            => new() { $"Header: {{while target: {AgainstZeroVariable.ToTreeView()[0]}}}" };
     }
 }
