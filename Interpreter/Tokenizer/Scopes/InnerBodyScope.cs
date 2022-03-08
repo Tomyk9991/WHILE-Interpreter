@@ -1,5 +1,6 @@
 using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Method;
+using WHILE_Interpreter.Interpreter.Operators;
 using WHILE_Interpreter.Interpreter.While;
 
 namespace WHILE_Interpreter.Interpreter
@@ -66,6 +67,15 @@ namespace WHILE_Interpreter.Interpreter
                 this.Stack.Push(returnToken);
                 return returnToken;
             }
+
+            AdditiveOperatorToken operatorToken = (AdditiveOperatorToken)new AdditiveOperatorToken().Parse(line);
+
+            if (operatorToken != null)
+            {
+                this.Stack.Push(operatorToken);
+                return operatorToken;
+            }
+            
 
             WhileEscapeToken whileEscapeToken = (WhileEscapeToken)new WhileEscapeToken().Parse(line);
             return whileEscapeToken;

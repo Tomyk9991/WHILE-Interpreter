@@ -1,25 +1,8 @@
 x = 5;
 
 num sub(x, y):
-    while a != 0:
-        while b != 0:
-            while c != 0:
-                d = 3;
-            #
-        #
-        e = 5;
-    #
-    return z;
-    
-num add(x, y):
-    while a != 0:
-        while b != 0:
-            while c != 0:
-                d = 3;
-            #
-        #
-        e = 5;
-    #
+    z = x;
+    z += y;
     return z;
 
 num div(x, y, z):

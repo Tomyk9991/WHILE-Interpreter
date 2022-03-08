@@ -1,5 +1,6 @@
 using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Method;
+using WHILE_Interpreter.Interpreter.Operators;
 
 namespace WHILE_Interpreter.Interpreter
 {
@@ -20,8 +21,15 @@ namespace WHILE_Interpreter.Interpreter
                 return variableToken;
 
             IToken methodHeader = new MethodHeaderToken().Parse(line);
+            
             if (methodHeader != null)
                 return methodHeader;
+
+
+            IToken operatorToken = new AdditiveOperatorToken().Parse(line);
+
+            if (operatorToken != null)
+                return operatorToken;
             
             return null;
         }
