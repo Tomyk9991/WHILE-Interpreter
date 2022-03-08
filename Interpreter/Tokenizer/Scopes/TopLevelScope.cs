@@ -1,6 +1,7 @@
 using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Method;
 using WHILE_Interpreter.Interpreter.Operators;
+using WHILE_Interpreter.Interpreter.While;
 
 namespace WHILE_Interpreter.Interpreter
 {
@@ -30,6 +31,16 @@ namespace WHILE_Interpreter.Interpreter
 
             if (operatorToken != null)
                 return operatorToken;
+
+            IToken whileHeaderToken = new WhileHeaderToken().Parse(line);
+
+            if (whileHeaderToken != null)
+                return whileHeaderToken;
+
+            IToken methodCall = new MethodCallToken().Parse(line);
+
+            if (methodCall != null)
+                return methodCall;
             
             return null;
         }
@@ -66,12 +77,15 @@ namespace WHILE_Interpreter.Interpreter
             {
                 List<string> stackableLines = stackable.ToTreeView();
 
+                int counter = 0;
                 foreach (string stackableLine in stackableLines)
                 {
                     if (stackableLines.Count == 1)
                         lines.Add("│  ├── " + stackableLine);
                     else
-                        lines.Add("│  │  " + stackableLine);
+                        lines.Add(counter == 0 ? ("│  " + stackableLine) : "│  │" + stackableLine);
+
+                    counter++;
                 }
                 
             }

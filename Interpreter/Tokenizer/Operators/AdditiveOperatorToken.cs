@@ -18,9 +18,7 @@ public class AdditiveOperatorToken : IToken, IStackable
     public IToken Parse(CodeLine line)
     {
         string[] segments = line.Phrase.Split(' ', ';').Where(seg => !string.IsNullOrEmpty(seg)).ToArray();
-
-        if (segments.Length != 3)
-            return null;
+        
             
         var nameToken = new NameToken().Parse(new CodeLine(segments[0]));
         if (nameToken == null)
@@ -37,8 +35,8 @@ public class AdditiveOperatorToken : IToken, IStackable
 
         if (Operator == Operator.Noop)
             return null;
-        
-        this.RHSOperand = IAssignableToken.Parse(segments[2]);
+
+        this.RHSOperand = IAssignableToken.Parse(string.Join("", segments[2..]));
             
 
         if (!(this as IToken).EndsWithSemicolon(line.Phrase))

@@ -1,4 +1,5 @@
 using WHILE_Interpreter.Interpreter.Logging;
+using WHILE_Interpreter.Interpreter.Method;
 
 namespace WHILE_Interpreter.Interpreter
 {
@@ -9,8 +10,14 @@ namespace WHILE_Interpreter.Interpreter
         public static IAssignableToken Parse(string assignment)
         {
             var nameAssignmentToken = new NameToken().Parse(new CodeLine(assignment));
+            
             if (nameAssignmentToken != null)
                 return nameAssignmentToken;
+
+            var methodAssignmentToken = new MethodCallToken().Parse(new CodeLine(assignment));
+
+            if (methodAssignmentToken != null)
+                return (IAssignableToken) methodAssignmentToken;
 
             var digitAssignmentToken = new DigitToken().Parse(new CodeLine(assignment));
             return digitAssignmentToken;

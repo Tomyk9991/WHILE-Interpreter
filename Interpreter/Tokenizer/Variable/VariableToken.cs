@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-
 namespace WHILE_Interpreter.Interpreter
 {
     public class VariableToken : IToken, IStackable
@@ -12,9 +9,7 @@ namespace WHILE_Interpreter.Interpreter
         {
             string[] segments = line.Phrase.Split(' ', ';').Where(seg => !string.IsNullOrEmpty(seg)).ToArray();
 
-            if (segments.Length != 3)
-                return null;
-            
+            Console.WriteLine(line.Phrase);
             var nameToken = new NameToken().Parse(new CodeLine(segments[0]));
             if (nameToken == null)
                 return null;
@@ -24,7 +19,7 @@ namespace WHILE_Interpreter.Interpreter
             if (segments[1] != "=")
                 return null;
 
-            this.Assignment = IAssignableToken.Parse(segments[2]);
+            this.Assignment = IAssignableToken.Parse(string.Join("", segments[2..]));
             
 
             if (!(this as IToken).EndsWithSemicolon(line.Phrase))

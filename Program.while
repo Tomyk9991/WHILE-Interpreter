@@ -1,6 +1,6 @@
 x = 5;
 
-num sub(x, y):
+num Add(x, y):
     z = x;
     z += y;
     return z;
@@ -13,8 +13,6 @@ num div(x, y, z):
 
 x += 2;
 y = 3;
+
 y += x;
-
-z = add(x, y);
-writeln(z);
-
+z += add(x, y);
