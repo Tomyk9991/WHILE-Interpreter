@@ -7,12 +7,22 @@ num Add(x, y):
 
 num div(x, y, z):
     while a != 0:
+        while a != 0:
+            b += 5;
+        #
         quertz = 5;
     #
-    return z;
+    return b;
 
 x += 2;
 y = 3;
+
+while a != 0:
+    while a != 0:
+        b += 5;
+    #
+    quertz = 5;
+#
 
 y += x;
 z += add(x, y);

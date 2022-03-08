@@ -1,5 +1,3 @@
-using WHILE_Interpreter.Interpreter.Logging;
-
 namespace WHILE_Interpreter.Interpreter.Operators;
 
 public enum Operator

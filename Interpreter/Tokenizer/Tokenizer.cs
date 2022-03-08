@@ -39,18 +39,35 @@ namespace WHILE_Interpreter.Interpreter
                     i = method.LatestLine();
                 }
 
-                if (token is WhileHeaderToken whileHeader)
+                if (token is WhileHeaderToken whileHeaderToken)
                 {
-                    WhileToken whileToken = new WhileToken(whileHeader, lines);
+                    WhileToken whileToken = new WhileToken(whileHeaderToken, lines);
                     scope.Stack.Push(whileToken);
+
+                    int j = 0;
                     
-                    if (i + 1 >= lines.Length)
-                        InterpreterWatcher.PseudoThrow($"Method can't be empty at line: {i}");
+                    for (j = i + 1; j < lines.Length; j++)
+                    {
+                        currentLine = lines[j];
+                        IToken innerToken = whileToken.Parse(currentLine);
+                        j = whileToken.Scope.LastVisited;
 
-                    currentLine = lines[i + 1];
-                    whileToken.Parse(currentLine);
+                        if (innerToken is WhileEscapeToken escapeToken)
+                            break;
+                    }
 
-                    i = whileToken.Scope.LastVisited;
+                    i = j;
+
+                    // WhileToken whileToken = new WhileToken(whileHeader, lines);
+                    // scope.Stack.Push(whileToken);
+                    //
+                    // if (i + 1 >= lines.Length)
+                    //     InterpreterWatcher.PseudoThrow($"Method can't be empty at line: {i}");
+                    //
+                    // currentLine = lines[i + 1];
+                    // whileToken.Parse(currentLine);
+                    //
+                    // i = whileToken.Scope.LastVisited;
                 }
             }
 
