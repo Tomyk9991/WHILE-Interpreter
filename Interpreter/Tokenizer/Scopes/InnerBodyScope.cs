@@ -77,7 +77,7 @@ namespace WHILE_Interpreter.Interpreter
             }
             
 
-            WhileEscapeToken whileEscapeToken = (WhileEscapeToken)new WhileEscapeToken().Parse(line);
+            WhileEscapeToken whileEscapeToken = (WhileEscapeToken) new WhileEscapeToken().Parse(line);
             return whileEscapeToken;
         }
 

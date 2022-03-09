@@ -9,7 +9,6 @@ namespace WHILE_Interpreter.Interpreter
         {
             string[] segments = line.Phrase.Split(' ', ';').Where(seg => !string.IsNullOrEmpty(seg)).ToArray();
 
-            Console.WriteLine(line.Phrase);
             var nameToken = new NameToken().Parse(new CodeLine(segments[0]));
             if (nameToken == null)
                 return null;

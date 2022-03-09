@@ -16,33 +16,14 @@ namespace WHILE_Interpreter.Interpreter
 
         public override IToken Parse(CodeLine line)
         {
-            IToken variableToken = new VariableToken().Parse(line);
-
-            if (variableToken != null)
-                return variableToken;
-
-            IToken methodHeader = new MethodHeaderToken().Parse(line);
-            
-            if (methodHeader != null)
-                return methodHeader;
-
-
-            IToken operatorToken = new AdditiveOperatorToken().Parse(line);
-
-            if (operatorToken != null)
-                return operatorToken;
-
-            IToken whileHeaderToken = new WhileHeaderToken().Parse(line);
-
-            if (whileHeaderToken != null)
-                return whileHeaderToken;
-
-            IToken methodCall = new MethodCallToken().Parse(line);
-
-            if (methodCall != null)
-                return methodCall;
-            
-            return null;
+            // Allowed tokens for top level statements
+            return new IToken[] {
+                new VariableToken(),
+                new MethodHeaderToken(),
+                new AdditiveOperatorToken(),
+                new WhileHeaderToken(),
+                new MethodCallToken()
+            }.Select(t => t.Parse(line)).FirstOrDefault(token => token != null);
         }
 
         public void Print()

@@ -57,17 +57,6 @@ namespace WHILE_Interpreter.Interpreter
                     }
 
                     i = j;
-
-                    // WhileToken whileToken = new WhileToken(whileHeader, lines);
-                    // scope.Stack.Push(whileToken);
-                    //
-                    // if (i + 1 >= lines.Length)
-                    //     InterpreterWatcher.PseudoThrow($"Method can't be empty at line: {i}");
-                    //
-                    // currentLine = lines[i + 1];
-                    // whileToken.Parse(currentLine);
-                    //
-                    // i = whileToken.Scope.LastVisited;
                 }
             }
 
