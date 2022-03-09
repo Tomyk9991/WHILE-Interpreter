@@ -13,6 +13,9 @@ class Program
         Tokenizer tokenizer = new Tokenizer();
         TopLevelScope scope = tokenizer.Tokenize(sourceCode);
 
+        Executor executor = new Executor(scope);
+        executor.Run();
+
         Console.ReadLine();
     }
 }

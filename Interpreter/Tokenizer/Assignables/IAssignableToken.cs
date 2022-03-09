@@ -6,6 +6,26 @@ namespace WHILE_Interpreter.Interpreter
     public interface IAssignableToken : ITreeViewElement
     {
         public uint Evaluate();
+        
+        public static IAssignableToken operator +(IAssignableToken a, IAssignableToken b)
+        {
+            var number = new DigitToken
+            {
+                Value = a.Evaluate() + b.Evaluate()
+            };
+
+            return number;
+        }
+
+        public static IAssignableToken operator -(IAssignableToken a, IAssignableToken b)
+        {
+            var number = new DigitToken
+            {
+                Value = a.Evaluate() - b.Evaluate()
+            };
+
+            return number;
+        }
 
         public static IAssignableToken Parse(string assignment)
         {

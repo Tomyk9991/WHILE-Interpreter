@@ -26,5 +26,27 @@ namespace WHILE_Interpreter.Interpreter
 
             return builder.ToString();
         }
+        
+        public static string ToMultiLineString<T>(this IEnumerable<T> list) where T : ITreeViewElement
+        {
+            T lastElement = list.Last();
+            
+            StringBuilder builder = new StringBuilder("[");
+            builder.AppendLine();
+
+            foreach (T value in list)
+            {
+                builder.Append("\t").Append(value.ToTreeView()[0]);
+                if (!value.Equals(lastElement))
+                {
+                    builder.AppendLine(", ");
+                }
+            }
+
+            builder.AppendLine();
+            builder.Append("]");
+
+            return builder.ToString();
+        }
     }
 }

@@ -22,8 +22,7 @@ namespace WHILE_Interpreter.Interpreter
 
         public uint Evaluate()
         {
-            // watch the value up in the stack
-            return 0;
+            return Executor.GetValueFromCurrentName(this.Value);
         }
 
 
