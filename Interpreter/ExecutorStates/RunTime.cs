@@ -1,18 +1,20 @@
-using System.Runtime.CompilerServices;
+using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Operators;
 
 namespace WHILE_Interpreter.Interpreter;
 
-public class Executor
+public class RunTime
 {
     public TopLevelScope Program { get; set; }
-
+    public ILogger Logger { get; set; }
+    
     //representing the current visible variables
     private static VariablesList variables;
     
-    public Executor(TopLevelScope scope)
+    public RunTime(TopLevelScope scope, ILogger logger)
     {
         this.Program = scope;
+        this.Logger = logger;
     }
 
     public void Run()
@@ -20,17 +22,23 @@ public class Executor
         List<IStackable> currentScope = BuildScope();
         variables = new VariablesList();
 
-        for (int i = 0; i < currentScope.Count; i++)
+        foreach (var stackable in currentScope)
         {
-            if (currentScope[i] is VariableToken variable)
+            if (stackable is VariableToken variable)
                 variables.AddOrUpdate(variable);
 
-            if (currentScope[i] is AdditiveOperatorToken operatorToken)
+            if (stackable is AdditiveOperatorToken operatorToken)
                 variables.Update(operatorToken);
+
+            // if (stackable is WhileToken whileToken)
+            // {
+            //     whileToken.
+            // }
         }
 
-        Console.WriteLine();
-        Console.WriteLine(variables);
+        
+        this.Logger.Log("Variable states:");
+        this.Logger.Log(variables);
     }
 
     private List<IStackable> BuildScope()

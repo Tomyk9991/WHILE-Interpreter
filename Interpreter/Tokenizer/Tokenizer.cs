@@ -1,3 +1,4 @@
+using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Method;
 using WHILE_Interpreter.Interpreter.While;
 
@@ -5,13 +6,19 @@ namespace WHILE_Interpreter.Interpreter
 {
     public class Tokenizer
     {
+        private ILogger logger;
+        public Tokenizer(ILogger logger)
+        {
+            this.logger = logger;
+        }
+        
         public TopLevelScope Tokenize(CodeLine[] lines)
         {
-            TopLevelScope scope = new TopLevelScope();
+            TopLevelScope scope = new TopLevelScope(this.logger);
 
             foreach (var codeLine in lines)
             {
-                Console.WriteLine(codeLine);
+                logger.Log(codeLine);
             }
             
             for (int i = 0; i < lines.Length; i++)

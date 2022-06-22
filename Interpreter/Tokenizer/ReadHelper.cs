@@ -8,7 +8,7 @@ namespace WHILE_Interpreter.Interpreter
     {
         public static CodeLine[] Read(string path)
         {
-            string[] sourceCode = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "/Program.while");
+            string[] sourceCode = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + path);
             CodeLine[] lines = new CodeLine[sourceCode.Length];
 
             for (int i = 0; i < sourceCode.Length; i++)

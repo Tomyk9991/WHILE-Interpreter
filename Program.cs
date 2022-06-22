@@ -1,22 +1,25 @@
 using WHILE_Interpreter.Interpreter;
+using WHILE_Interpreter.Interpreter.Logging;
+
 namespace WHILE_Interpreter;
 
 class Program
 {
-    /*
-     */
     public static void Main(string[] args)
     {
-        CodeLine[] sourceCode = ReadHelper.Read(AppDomain.CurrentDomain.BaseDirectory + "/Program.while");
+        CodeLine[] sourceCode = ReadHelper.Read("/Program.while");
         sourceCode = ReadHelper.Normalize(sourceCode);
-            
-        Tokenizer tokenizer = new Tokenizer();
+        
+        // ILogger logger = new NoLogger();
+        ILogger logger = new Logger();
+        
+        
+        Tokenizer tokenizer = new Tokenizer(logger);
         TopLevelScope scope = tokenizer.Tokenize(sourceCode);
-
-        Executor executor = new Executor(scope);
-        executor.Run();
-
+        
+        RunTime runTime = new RunTime(scope, new Logger());
+        runTime.Run();
+        
         Console.ReadLine();
     }
 }
-

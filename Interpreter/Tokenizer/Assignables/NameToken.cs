@@ -22,7 +22,7 @@ namespace WHILE_Interpreter.Interpreter
 
         public uint Evaluate()
         {
-            return Executor.GetValueFromCurrentName(this.Value);
+            return RunTime.GetValueFromCurrentName(this.Value);
         }
 
 

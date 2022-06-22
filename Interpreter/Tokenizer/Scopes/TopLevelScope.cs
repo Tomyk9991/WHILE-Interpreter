@@ -8,10 +8,12 @@ namespace WHILE_Interpreter.Interpreter
     public class TopLevelScope : Scope, ITreeViewElement
     {
         public List<MethodToken> Methods { get; set; }
+        public ILogger Logger { get; set; }
         
-        public TopLevelScope()
+        public TopLevelScope(ILogger logger)
         {
             this.Methods = new List<MethodToken>();
+            this.Logger = logger;
         }
 
         public override IToken Parse(CodeLine line)
@@ -30,7 +32,7 @@ namespace WHILE_Interpreter.Interpreter
         {
             var lines = ToTreeView();
             foreach (string line in lines)
-                Console.WriteLine(line);
+                Logger.Log(line);
         }
 
         public List<string> ToTreeView()

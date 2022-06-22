@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WHILE_Interpreter.Interpreter.Logging;
+using WHILE_Interpreter.Interpreter.Operators;
 
 namespace WHILE_Interpreter.Interpreter
 {
@@ -25,6 +26,16 @@ namespace WHILE_Interpreter.Interpreter
             builder.Append("]");
 
             return builder.ToString();
+        }
+
+        public static string ToStringRepresentation(this Operator op)
+        {
+            return op switch
+            {
+                Operator.Add => "+=",
+                Operator.Sub => "-=",
+                Operator.Noop => "NOOP"
+            };
         }
         
         public static string ToMultiLineString<T>(this IEnumerable<T> list) where T : ITreeViewElement

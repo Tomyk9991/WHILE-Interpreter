@@ -6,10 +6,14 @@ namespace WHILE_Interpreter.Interpreter;
 public class VariablesList
 {
     private List<VariableToken> Tokens { get; } = new();
+    private readonly VariableTokenEquality equalityOperator = new();
     
     public bool AddOrUpdate(VariableToken token)
     {
-        if (!Tokens.Contains(token, new VariableTokenEquality()))
+        
+        var equality = new VariableTokenEquality();
+        
+        if (!Tokens.Contains(token, equalityOperator))
         {
             Tokens.Add(token);
             return true;

@@ -29,7 +29,12 @@ namespace WHILE_Interpreter.Interpreter
 
             return this;
         }
-        
+
+        public override string ToString()
+        {
+            return $"Variable: {this.Name.Value} = {this.Assignment.Evaluate()}";
+        }
+
         public List<string> ToTreeView()
             => new() { $"Variable token: {{name: {this.Name.Value}, Assignment: {this.Assignment.ToTreeView()[0]}}}" };
     }

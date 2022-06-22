@@ -46,6 +46,11 @@ public class AdditiveOperatorToken : IToken, IStackable
         return this;
     }
 
+    public override string ToString()
+    {
+        return $"Operation: {this.Name.Value} {this.Operator.ToStringRepresentation()} {this.RHSOperand.Evaluate()}";
+    }
+
     public List<string> ToTreeView()
         => new() { $"Operator token: {{name: {this.Name.Value}, Operator: {this.Operator.ToString() }, RHS: {this.RHSOperand.ToTreeView()[0]}}}" };
 }
