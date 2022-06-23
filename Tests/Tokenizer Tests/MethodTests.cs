@@ -41,7 +41,7 @@ public class MethodTests
     [TestMethod]
     public void CompleteMethodTests()
     {
-        CodeLineArrayResultPair[] tests =
+        CodeLineArrayMethodResultPair[] tests =
         {
             new(new CodeLine[] 
             {

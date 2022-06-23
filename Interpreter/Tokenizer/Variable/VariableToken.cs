@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace WHILE_Interpreter.Interpreter
 {
     public class VariableToken : IToken, IStackable

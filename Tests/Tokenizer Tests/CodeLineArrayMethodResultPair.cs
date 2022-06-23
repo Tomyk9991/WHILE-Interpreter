@@ -2,4 +2,4 @@ using WHILE_Interpreter.Interpreter;
 
 namespace Tests.TokenizerTests;
 
-record CodeLineArrayResultPair(CodeLine[] CodeLines, int Result);
+record CodeLineArrayMethodResultPair(CodeLine[] CodeLines, int Result);

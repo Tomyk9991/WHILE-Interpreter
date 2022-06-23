@@ -65,6 +65,8 @@ namespace WHILE_Interpreter.Interpreter
             Phrase = value;
             Number = 0;
         }
+        
+        public static implicit operator CodeLine(string line) => new(line, 1);
 
         public override string ToString()
         {
