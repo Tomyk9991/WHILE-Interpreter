@@ -35,7 +35,15 @@ namespace WHILE_Interpreter.Interpreter.Method
                 CodeLine currentLine = codeLines[i];
                 
                 IToken token = Scope.Parse(currentLine);
-                
+
+                MethodHeaderToken headerToken = (MethodHeaderToken) new MethodHeaderToken().Parse(line);
+
+                if (headerToken != null)
+                {
+                    InterpreterWatcher.PseudoThrow("Can't define a method inside a method");
+                    return null;
+                }
+
                 i = Scope.LastVisited;
 
                 latestVisitedLine = i;

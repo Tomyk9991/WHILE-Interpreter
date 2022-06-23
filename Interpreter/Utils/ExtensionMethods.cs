@@ -10,6 +10,9 @@ namespace WHILE_Interpreter.Interpreter
     {
         public static string ToInlineString<T>(this IEnumerable<T> list) where T : ITreeViewElement
         {
+            if (list == null)
+                return "[]";
+            
             T lastElement = list.Last();
             
             StringBuilder builder = new StringBuilder("[");

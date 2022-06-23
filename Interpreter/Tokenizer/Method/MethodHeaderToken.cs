@@ -23,7 +23,9 @@ namespace WHILE_Interpreter.Interpreter.Method
             
             if (split.Length < 2)
                 return null;
-
+            
+                
+ 
             TypeToken typeToken = TypeTokens.Analyse(split[0]);
 
             if (typeToken == TypeToken.Invalid)
@@ -31,6 +33,12 @@ namespace WHILE_Interpreter.Interpreter.Method
 
             this.ReturnType = typeToken;
 
+            if (!line.Phrase.EndsWith(':'))
+            {
+                InterpreterWatcher.PseudoThrow($"Expected ':' after method definition, but found '{line.Phrase.Last()}'");
+                return null;
+            }
+            
             NameToken nameToken = new NameToken().Parse(new CodeLine(split[1]));
 
             if (nameToken == null)
@@ -45,6 +53,9 @@ namespace WHILE_Interpreter.Interpreter.Method
             if (split.Length > 2)
             {
                 parameters = ParseParameters(split[2..], line);
+                
+                if (parameters == null)
+                    return null;
             }
 
             this.Parameters = parameters;
@@ -64,6 +75,13 @@ namespace WHILE_Interpreter.Interpreter.Method
                     InterpreterWatcher.PseudoThrow($"Expecting a sequence as parameter at line: {line.Number}");
 
                 NameToken parameter = new NameToken().Parse(new CodeLine(parameters[i].Replace(",", "")));
+
+                if (parameter == null)
+                {
+                    InterpreterWatcher.PseudoThrow($"Expected a name for the parameter at line: {line.Number}");
+                    return null;
+                }
+                
                 p.Add(parameter);
             }
 

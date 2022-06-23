@@ -35,7 +35,10 @@ public class AdditiveOperatorToken : IToken, IStackable
             return null;
 
         this.RHSOperand = IAssignableToken.Parse(string.Join("", segments[2..]));
-            
+
+        if (RHSOperand == null)
+            return null;
+        
 
         if (!(this as IToken).EndsWithSemicolon(line.Phrase))
         {

@@ -12,6 +12,15 @@
       <None Update="Program.while">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Remove="Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Tests\**" />
     </ItemGroup>
 
 </Project>

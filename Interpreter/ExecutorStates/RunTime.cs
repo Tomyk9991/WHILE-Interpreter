@@ -17,7 +17,7 @@ public class RunTime
         this.Logger = logger;
     }
 
-    public void Run()
+    public VariablesList Run()
     {
         List<IStackable> currentScope = BuildScope();
         variables = new VariablesList();
@@ -36,9 +36,11 @@ public class RunTime
             // }
         }
 
-        
+
         this.Logger.Log("Variable states:");
         this.Logger.Log(variables);
+        
+        return variables;
     }
 
     private List<IStackable> BuildScope()

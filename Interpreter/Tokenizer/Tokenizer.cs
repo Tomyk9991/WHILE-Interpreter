@@ -41,7 +41,10 @@ namespace WHILE_Interpreter.Interpreter
                         InterpreterWatcher.PseudoThrow($"Method can't be empty at line: {i}");
                     
                     currentLine = lines[i + 1];
-                    method.Parse(currentLine);
+                    MethodToken methodToken = (MethodToken) method.Parse(currentLine);
+
+                    if (methodToken == null)
+                        return scope;
                     
                     i = method.LatestLine();
                 }

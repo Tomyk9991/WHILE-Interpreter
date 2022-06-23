@@ -40,6 +40,10 @@ namespace WHILE_Interpreter.Interpreter.Method
         }
 
         public List<string> ToTreeView()
-            => new() { $"Return token: {this.ReturnValue.ToTreeView()[0]}" };
+        {
+            return this.ReturnValue == null 
+                ? new List<string> { "Return token" } 
+                : new List<string> { $"Return token: {this.ReturnValue.ToTreeView()[0]}" };
+        }
     }
 }

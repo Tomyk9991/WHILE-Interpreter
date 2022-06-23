@@ -15,6 +15,18 @@ namespace WHILE_Interpreter.Interpreter
             {
                 lines[i] = new CodeLine(sourceCode[i], (uint) i + 1);
             }
+            
+            return lines;
+        }
+        
+        public static CodeLine[] Read(string[] sourceCode)
+        {
+            CodeLine[] lines = new CodeLine[sourceCode.Length];
+
+            for (int i = 0; i < sourceCode.Length; i++)
+            {
+                lines[i] = new CodeLine(sourceCode[i], (uint) i + 1);
+            }
 
             return lines;
         }
