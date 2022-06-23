@@ -2,3 +2,5 @@
 /.[Vv]scode/
 /bin/
 /obj/
+WHILE-Interpreter.csproj
+*.csproj
