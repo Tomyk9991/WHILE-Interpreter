@@ -33,31 +33,23 @@ num add(x, y):
 ```
 
 ```
-Scope:{
-  Stack: {
-    Variable token: {name: x, Assignment: {Value: 5}}
-  }
-  Methods: {
-    Method token: {
-      Header: {name: add return type: Num, parameters: [{Value: x}, {Value: y}]}
-      Stack: {
-        Return token: {Value: z}
-        While token: {
-          Header: {while target: {Value: a}}
-          Stack: {
-            Variable token: {name: d, Assignment: {Value: 5}}
-            While token: {
-              Header: {while target: {Value: b}}
-              Stack: {
-                Variable token: {name: c, Assignment: {Value: 5}}
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+Program:
+├── Methods:
+│  ├── Method token: ADD
+│  │  ├── Header
+│  │  │  ├── name: add, return: Num, parameters: [{Value: x}, {Value: y}]
+│  │  ├── Scope:
+│  │     └─ Return token: {Value: z}
+│  │     ├── While Token:
+│  │        ├── Header: {while target: {Value: a}}
+│  │        └── Scope:
+│  │           └─ Variable token: {name: d, Assignment: {Value: 5}}
+│  │           ├── While Token:
+│  │              ├── Header: {while target: {Value: b}}
+│  │              └── Scope:
+│  │                 └─ Variable token: {name: c, Assignment: {Value: 5}}
+├── Scope:
+│  ├── Variable token: {name: x, Assignment: {Value: 5}}
 ```
 
 
