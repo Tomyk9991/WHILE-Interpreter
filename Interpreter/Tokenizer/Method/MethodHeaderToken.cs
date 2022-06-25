@@ -63,6 +63,12 @@ namespace WHILE_Interpreter.Interpreter.Method
             return this;
         }
 
+        public override string ToString()
+        {
+            string parameters = this.Parameters != null ? string.Join(", ", this.Parameters.Select(p => p.ToString())) : "";
+            return $"{this.ReturnType.ToString()} {this.Name.Value}({parameters})";
+        }
+
         private NameToken[] ParseParameters(string[] parameters, CodeLine line)
         {
             List<NameToken> p = new List<NameToken>();

@@ -35,8 +35,7 @@ namespace WHILE_Interpreter.Interpreter
                 if (token is MethodHeaderToken methodHeader)
                 {
                     MethodToken method = new MethodToken(methodHeader, lines, currentLine.Number);
-                    scope.Methods.Add(method);
-
+                    
                     if(i + 1 >= lines.Length)
                         InterpreterWatcher.PseudoThrow($"Method can't be empty at line: {i}");
                     
@@ -44,14 +43,27 @@ namespace WHILE_Interpreter.Interpreter
                     MethodToken methodToken = (MethodToken) method.Parse(currentLine);
 
                     if (methodToken == null)
+                    {
                         return scope;
+                    }
+                    
+                    scope.Methods.Add(method);
+
+                    if (!methodToken.EndsWithReturn)
+                    {
+                        InterpreterWatcher.PseudoThrow($"Method {methodHeader.ToString()} must end with return at line: {i + 1}");
+                        scope.Methods.Remove(method);
+                        return scope;
+                    }
                     
                     i = method.LatestLine();
                 }
 
                 if (token is WhileHeaderToken whileHeaderToken)
                 {
+                    bool removedWhileFromStack = false;
                     WhileToken whileToken = new WhileToken(whileHeaderToken, lines);
+                    
                     scope.Stack.Push(whileToken);
 
                     int j = 0;
@@ -60,13 +72,39 @@ namespace WHILE_Interpreter.Interpreter
                     {
                         currentLine = lines[j];
                         IToken innerToken = whileToken.Parse(currentLine);
+
+                        if (innerToken is WhileToken stackedWhileToken)
+                        {
+                            if (!stackedWhileToken.EscapeTokenFound)
+                            {
+                                InterpreterWatcher.PseudoThrow("Missing escape token at line: " + whileToken.Scope.LastVisited);
+                                scope.Stack.Pop();
+                                removedWhileFromStack = true;
+                                break;
+                            }
+                        }
+                        
                         j = whileToken.Scope.LastVisited;
 
                         if (innerToken is WhileEscapeToken escapeToken)
+                        {
+                            whileToken.EscapeTokenFound = true;
                             break;
+                        }
                     }
 
                     i = j;
+                    if (!whileToken.EscapeTokenFound)
+                    {
+
+                        if (!removedWhileFromStack)
+                        {
+                            InterpreterWatcher.PseudoThrow("Missing escape token at line: " + whileToken.Scope.LastVisited);
+                            scope.Stack.Pop();
+                        }
+                        
+                        break;
+                    }
                 }
             }
 

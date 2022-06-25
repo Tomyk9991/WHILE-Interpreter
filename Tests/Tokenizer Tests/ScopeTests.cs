@@ -39,14 +39,14 @@ public class ScopeTests
             expectedScope.Push(new ReturnToken(expectedMethodHeaderToken));
             
             
-            CollectionAssert.AreEqual(scope.Methods[0].Scope.Stack, expectedScope,  new IStackableComparer());
+            CollectionAssert.AreEqual(scope.Methods[0].Scope.Stack, expectedScope, new IStackableComparer());
             
             Console.WriteLine(scope);
         }
     }
 }
 
-class IStackableComparer : IComparer
+public class IStackableComparer : IComparer
 {
     public int Compare(object? x, object? y)
     {

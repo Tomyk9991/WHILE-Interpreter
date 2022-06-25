@@ -87,7 +87,6 @@ public class AssignableTests
             var line = new CodeLine(pair.Token);
             var token = new DigitToken().Parse(line);
             
-            
             if (pair.Result)
                 Assert.AreEqual(uint.Parse(pair.Token), token.Value, message: pair.Token);
             else

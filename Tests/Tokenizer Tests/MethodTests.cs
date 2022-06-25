@@ -51,31 +51,36 @@ public class MethodTests
             }, 1),
             new(new CodeLine[] 
             {
-            new("void hallo2():", 1),
-            new("    a = 5;", 2),
-            new("    return;", 3),
-            new("void welt():", 4),
-            new("    b = 6;", 5),
-            new("    return;", 6),
-            }, 2),
+                new("void hallo2():", 1),
+                new("    a = 5;", 2)
+            }, 0),
             new(new CodeLine[] 
             {
                 new("void hallo3():", 1),
+                new("    a = 5;", 2),
+                new("    return;", 3),
+                new("void welt():", 4),
+                new("    b = 6;", 5),
+                new("    return;", 6),
+            }, 2),
+            new(new CodeLine[] 
+            {
+                new("void hallo4():", 1),
                 new("void welt():", 2),
                 new("    b = 6;", 3),
                 new("    return;", 4),
+            }, 0),
+            
+            new(new CodeLine[] 
+            {
+                new("num welt5():", 1),
+                new("    b = 6;", 2),
+                new("    return 5;", 3),
             }, 1),
             
             new(new CodeLine[] 
             {
-            new("num welt():", 1),
-            new("    b = 6;", 2),
-            new("    return 5;", 3),
-            }, 1),
-            
-            new(new CodeLine[] 
-            {
-                new("num welt():", 1),
+                new("num welt6():", 1),
                 new("    b = 6;", 2),
                 new("    return welt();", 3),
             }, 1)
@@ -86,7 +91,7 @@ public class MethodTests
             Tokenizer tokenizer = new Tokenizer(new NoLogger());
             TopLevelScope scope = tokenizer.Tokenize(pair.CodeLines);
 
-            Assert.AreEqual(scope.Methods.Count, pair.Result, pair.CodeLines[0].Phrase);
+            Assert.AreEqual(pair.Result, scope.Methods.Count, pair.CodeLines[0].Phrase);
         }
     }
 }

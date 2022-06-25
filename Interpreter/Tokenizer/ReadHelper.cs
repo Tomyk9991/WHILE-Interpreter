@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-
 namespace WHILE_Interpreter.Interpreter
 {
     public class ReadHelper
@@ -38,6 +34,10 @@ namespace WHILE_Interpreter.Interpreter
             for (int clc = 1, i = 0; i < sourceCode.Length; i++)
             {
                 var line = sourceCode[i];
+                
+                if (line.Phrase.Trim().StartsWith("//"))
+                    continue;
+                
                 if (!string.IsNullOrEmpty(line.Phrase) && !string.IsNullOrWhiteSpace(line.Phrase))
                 {
                     source.Add(new CodeLine(line.Phrase, (uint)clc));
@@ -46,31 +46,6 @@ namespace WHILE_Interpreter.Interpreter
             }
 
             return source.ToArray();
-        }
-    }
-
-    public class CodeLine
-    {
-        public string Phrase { get; private set; }
-        public uint Number { get; private set; }
-
-        public CodeLine(string phrase, uint number)
-        {
-            Phrase = phrase;
-            Number = number;
-        }
-
-        public CodeLine(string value)
-        {
-            Phrase = value;
-            Number = 0;
-        }
-        
-        public static implicit operator CodeLine(string line) => new(line, 1);
-
-        public override string ToString()
-        {
-            return $"{Number}: {this.Phrase}";
         }
     }
 }

@@ -10,6 +10,17 @@ namespace WHILE_Interpreter.Interpreter.While
         // The while language only can use use x != 0, so no need for real boolean algebra
         public NameToken AgainstZeroVariable { get; private set; }
 
+        public WhileHeaderToken()
+        {
+            AgainstZeroVariable = null;
+            
+        }
+        
+        public WhileHeaderToken(NameToken againstZeroVariable)
+        {
+            AgainstZeroVariable = againstZeroVariable;
+        }
+        
         public IToken Parse(CodeLine line)
         {
             string[] split = line.Phrase.Split(' ', ':')

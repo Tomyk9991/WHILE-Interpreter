@@ -7,7 +7,7 @@ class Program
 {
     public static void Main(string[] args)
     {
-        CodeLine[] sourceCode = ReadHelper.Read("/Program.while");
+        CodeLine[] sourceCode = ReadHelper.Read(args[0]);
         sourceCode = ReadHelper.Normalize(sourceCode);
         
         // ILogger logger = new NoLogger();
@@ -19,7 +19,5 @@ class Program
         
         RunTime runTime = new RunTime(scope, new Logger());
         runTime.Run();
-        
-        Console.ReadLine();
     }
 }

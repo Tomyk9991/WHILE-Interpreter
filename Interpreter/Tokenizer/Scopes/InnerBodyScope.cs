@@ -53,7 +53,10 @@ namespace WHILE_Interpreter.Interpreter
                     LastVisited = i;
                     
                     if (token is WhileEscapeToken escapeToken)
+                    {
+                        whileToken.EscapeTokenFound = true;
                         break;
+                    }
                 }
                 
 

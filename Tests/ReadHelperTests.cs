@@ -73,6 +73,27 @@ public class ReadHelperTests
 
         CollectionAssert.AreEqual(expectedCodeLines, sourceCode, new CodeLineComparer());
     }
+    
+    [TestMethod]
+    public void LinesCommented()
+    {
+        string[] commentCode = new[]
+        {
+            "// x = 5;", 
+            "", 
+            "//num Add(x, y):",
+            "    //////z = x;", 
+            "//    //z += y;", 
+            "//return z;",
+        };
+        
+        CodeLine[] sourceCode = ReadHelper.Read(commentCode);
+        sourceCode = ReadHelper.Normalize(sourceCode);
+
+        CodeLine[] expectedCodeLines = Array.Empty<CodeLine>();
+
+        CollectionAssert.AreEqual(expectedCodeLines, sourceCode, new CodeLineComparer());
+    }
 
     class CodeLineComparer : IComparer
     {

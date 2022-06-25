@@ -1,4 +1,3 @@
-using System.Text;
 using WHILE_Interpreter.Interpreter.Logging;
 
 namespace WHILE_Interpreter.Interpreter.Method
@@ -7,6 +6,8 @@ namespace WHILE_Interpreter.Interpreter.Method
     {
         public MethodHeaderToken HeaderToken { get; private set; }
         public InnerBodyScope Scope { get; private set; }
+
+        public bool EndsWithReturn => this.Scope.Stack.First() is ReturnToken;
 
         private CodeLine[] codeLines;
         private uint startIndex = 0;
@@ -47,7 +48,7 @@ namespace WHILE_Interpreter.Interpreter.Method
                 i = Scope.LastVisited;
 
                 latestVisitedLine = i;
-                
+
                 if (token is ReturnToken)
                     break;
             }

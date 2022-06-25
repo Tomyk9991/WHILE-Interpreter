@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using WHILE_Interpreter.Interpreter.Logging;
 using WHILE_Interpreter.Interpreter.Operators;
@@ -8,6 +6,35 @@ namespace WHILE_Interpreter.Interpreter
 {
     public static class ExtensionMethods
     {
+        public static T SearchType<T>(this Stack<IStackable> stack)
+        {
+            foreach (IStackable stackable in stack)
+            {
+                if (stackable is T target)
+                {
+                    return target;
+                }
+            }
+
+            return default;
+        }
+        
+        public static string TS<T>(this IEnumerable<T> list)
+        {
+            if (list == null) return "[NULL]";
+            return string.Join(", ", list);
+        }
+        
+        public static void Print<T>(this IEnumerable<T> list)
+        {
+            if (list == null)
+                Console.WriteLine("[NULL]");
+            
+            foreach (T value in list)
+            {
+                Console.WriteLine(value);
+            }
+        }
         public static string ToInlineString<T>(this IEnumerable<T> list) where T : ITreeViewElement
         {
             if (list == null)
